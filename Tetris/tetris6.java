@@ -33,7 +33,7 @@ public class tetris6 extends JPanel {
     private boolean isFallingFinished = false;
     private boolean isStarted = false;
     private boolean isPaused = false;
-    private int numLinesRemoved = 0;
+    private int numLinesRemoved=0;
     private int curX = 0;
     private int curY = 0;
     private Shape curPiece;
@@ -280,9 +280,13 @@ public class tetris6 extends JPanel {
         }
     
         public int minY() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'minY'");
+            int m = coordinates[0][1];
+            for (int i=0; i < 4; i++) {
+                m = Math.min(m, coordinates[i][1]);
+            }
+            return m;
         }
+    
 
         public void setShape(Tetrominoes shape) {
             pieceShape = shape;
@@ -333,11 +337,30 @@ public class tetris6 extends JPanel {
         }
     
         public Shape rotateRight() {
-            // Implement rotation logic
-            // ...
+            if (pieceShape == Tetrominoes.NoShape)
+                return this;
     
-            return this;
+            Shape result = new Shape();
+            result.pieceShape = pieceShape;
+    
+            for (int i = 0; i < 4; ++i) {
+                result.setX(i, y(i));
+                result.setY(i, -x(i));
+            }
+            return result;
         }
+        public void newPiece() {
+            curPiece = new Shape();
+            curPiece.setRandomShape();
+            curX = BOARD_WIDTH / 2 - 2; // Adjust for piece width
+            curY = BOARD_HEIGHT - 1 + curPiece.minY();
+        
+            if (!tryMove(curPiece, curX, curY)) {
+                curPiece.setShape(Shape.Tetrominoes.NoShape);
+                timer.stop();
+                isStarted = false;
+            }
+    }
     }
     class TAdapter extends KeyAdapter {
 
