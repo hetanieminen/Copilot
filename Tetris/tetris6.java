@@ -13,10 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class tetris5 extends JPanel {
+public class tetris6 extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Tetris");
-        tetris5 tetris = new tetris5();
+        tetris6 tetris = new tetris6();
         frame.add(tetris);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,7 +44,7 @@ public class tetris5 extends JPanel {
             new Color(102, 204, 204), new Color(218, 170, 0)
     };
 
-    public tetris5() {
+    public tetris6() {
         initBoard();
     }
 
